@@ -7,9 +7,9 @@ use App\Models\Post;
   
 class Posts extends Component
 {
-    public $posts, $title, $description, $post_id;
-    public $isExist = false;
-  
+    public $posts, $title, $body, $post_id;
+    public $updateMode = false;
+   
     /**
      * The attributes that are mass assignable.
      *
@@ -26,54 +26,11 @@ class Posts extends Component
      *
      * @var array
      */
-    public function create()
-    {
-        $this->resetInputFields();
-        $this->openUpdate();
-    }
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    public function cancel()
-    {
-      $this->resetInputFields();
-      $this->openCreate();
-    }
-  
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    public function openUpdate()
-    {
-        $this->isExist = true;
-    }
-  
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    public function openCreate()
-    {
-        $this->isExist = false;
-    }
-  
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     private function resetInputFields(){
         $this->title = '';
-        $this->description = '';
-        $this->post_id = '';
+        $this->body = '';
     }
-     
+   
     /**
      * The attributes that are mass assignable.
      *
@@ -81,22 +38,18 @@ class Posts extends Component
      */
     public function store()
     {
-        $this->validate([
+        $validatedDate = $this->validate([
             'title' => 'required',
-            'description' => 'required',
-        ]);
-   
-        Post::updateOrCreate(['id' => $this->post_id], [
-            'title' => $this->title,
-            'description' => $this->description
+            'body' => 'required',
         ]);
   
-        session()->flash('message', 
-            $this->post_id ? 'Post Updated Successfully.' : 'Post Created Successfully.');
+        Post::create($validatedDate);
   
-        $this->openCreate();
+        session()->flash('message', 'Post Created Successfully.');
+  
         $this->resetInputFields();
     }
+  
     /**
      * The attributes that are mass assignable.
      *
@@ -107,11 +60,46 @@ class Posts extends Component
         $post = Post::findOrFail($id);
         $this->post_id = $id;
         $this->title = $post->title;
-        $this->description = $post->description;
-    
-        $this->openUpdate();
+        $this->body = $post->body;
+  
+        $this->updateMode = true;
     }
-     
+  
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    public function cancel()
+    {
+        $this->updateMode = false;
+        $this->resetInputFields();
+    }
+  
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    public function update()
+    {
+        $validatedDate = $this->validate([
+            'title' => 'required',
+            'body' => 'required',
+        ]);
+  
+        $post = Post::find($this->post_id);
+        $post->update([
+            'title' => $this->title,
+            'body' => $this->body,
+        ]);
+  
+        $this->updateMode = false;
+  
+        session()->flash('message', 'Post Updated Successfully.');
+        $this->resetInputFields();
+    }
+   
     /**
      * The attributes that are mass assignable.
      *

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Livewire\Posts;
+// use App\Http\Livewire\Posts;
 use Illuminate\Support\Facades\Route;
 
 /*

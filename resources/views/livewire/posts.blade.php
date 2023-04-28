@@ -1,28 +1,34 @@
 <div>
-    @if($isExist)
-        @include('livewire.Update')
-    @else
-        @include('livewire.Create')
+    @if (session()->has('message'))
+        <div class="alert alert-success">
+            {{ session('message') }}
+        </div>
     @endif
-
+  
+    @if($updateMode)
+        @include('livewire.update')
+    @else
+        @include('livewire.create')
+    @endif
+  
     <table class="table table-bordered mt-5">
         <thead>
             <tr>
                 <th>No.</th>
                 <th>Title</th>
-                <th>Description</th>
-                <th>Action</th>
+                <th>Body</th>
+                <th width="150px">Action</th>
             </tr>
         </thead>
-        <tbody class="text-gray-800">
-            @foreach($posts as $value)
+        <tbody>
+            @foreach($posts as $post)
             <tr>
-                <td>{{ $value->id }}</td>
-                <td>{{ $value->title }}</td>
-                <td>{{ $value->description }}</td>
+                <td>{{ $post->id }}</td>
+                <td>{{ $post->title }}</td>
+                <td>{{ $post->body }}</td>
                 <td>
-                <button wire:click="edit({{ $value->id }})" class="btn btn-primary btn-sm">Edit</button>
-                <button wire:click="delete({{ $value->id }})" class="btn btn-danger btn-sm">Delete</button>
+                <button wire:click="edit({{ $post->id }})" class="btn btn-primary btn-sm">Edit</button>
+                    <button wire:click="delete({{ $post->id }})" class="btn btn-danger btn-sm">Delete</button>
                 </td>
             </tr>
             @endforeach

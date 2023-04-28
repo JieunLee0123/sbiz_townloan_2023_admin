@@ -21,34 +21,21 @@
           <div class="container py-10 h-64 md:w-4/5 w-11/12 mx-5">
               <div class="w-full h-full">
                   
-                <div class="relative overflow-x-auto border-b sm:rounded-lg">
+                <div class="relative overflow-x-auto sm:rounded-lg">
                     @livewire('component.page-title')  
 
-                    @livewire('component.table')
+                    @if (session()->has('message'))
+                        <div class="alert alert-success">
+                            {{ session('message') }}
+                        </div>
+                    @endif
+                    @livewire('posts')
                 </div>
-
               </div>
           </div>
       </div>
   </div>  
 </div>
+@livewireScripts
 </body>
-{{-- <body>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header text-gray-900 text-center">
-                        <h2>Laravel 9 Livewire Crud</h2>
-                    </div>
-                    <div class="card-body">
-                        @livewire('posts')
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    @livewireScripts 
-</div>
-</body> --}}
 </html>
