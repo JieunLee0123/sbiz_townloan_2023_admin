@@ -6,13 +6,18 @@
         </div>
         <ul class="mt-12">
             <li class="flex w-full justify-between text-indigo-700 cursor-pointer items-center mb-6">
-                <a href="javascript:void(0)" class="flex items-center">
+                <a href="/create" class="flex items-center">
+                    <span class="text-sm">Create</span>
+                </a>
+            </li>
+            <li class="flex w-full justify-between text-indigo-700 cursor-pointer items-center mb-6">
+                <a href="/notice" class="flex items-center">
                     <span class="text-sm">공고</span>
                 </a>
                 <div class="py-1 px-3 bg-indigo-700 rounded text-white flex items-center justify-center text-xs">5</div>
             </li>
             <li class="flex w-full justify-between text-gray-600 hover:text-indigo-700 cursor-pointer items-center mb-6">
-                <a href="javascript:void(0)" class="flex items-center">
+                <a href="/news" class="flex items-center">
                     <span class="text-sm">소식</span>
                 </a>
                 <div class="py-1 px-3 bg-indigo-700 rounded text-white flex items-center justify-center text-xs">8</div>

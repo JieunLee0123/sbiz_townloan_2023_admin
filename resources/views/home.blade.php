@@ -29,7 +29,7 @@
                             {{ session('message') }}
                         </div>
                     @endif
-                    @livewire('posts')
+                    @livewire('posts', ['param'=>$param])
                 </div>
               </div>
           </div>
